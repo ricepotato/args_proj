@@ -2,6 +2,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArgsTest {
@@ -9,34 +11,28 @@ class ArgsTest {
 
     @BeforeEach
     void setUp() {
-        String[] input = new String[1];
+        String[] input = new String[3];
         input[0] = "-l";
-        arg = new Args("l", input);
+        input[1] = "-d";
+        input[2] = "3";
+
+        try {
+            arg = new Args("l,d*", input);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterEach
     void tearDown() {
     }
 
-    @Test
-    void isValid() {
-    }
 
     @Test
-    void cardianlity() {
-    }
-
-    @Test
-    void useage() {
-    }
-
-    @Test
-    void errorMessage() {
-    }
-
-    @Test
-    void getBoolean() {
+    void testArgs() {
         boolean logging = arg.getBoolean('l');
         assertTrue(logging);
+        String value = arg.getString('d');
+        assertEquals("3", value);
     }
 }
