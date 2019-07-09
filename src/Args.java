@@ -232,7 +232,7 @@ public class Args {
     }
 
     public boolean getBoolean(char arg){
-        return booleanArgs.get(arg);
+        return falseIfNull(booleanArgs.get(arg));
     }
 
     private boolean falseIfNull(Boolean b){

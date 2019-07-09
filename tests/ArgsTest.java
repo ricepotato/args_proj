@@ -53,4 +53,21 @@ class ArgsTest {
             arg = new Args("3#", input);
         });
     }
+
+    @Test
+    void testArgsParseUnexpectedArg(){
+        String[] input = new String[1];
+        input[0] = "-y";
+
+        try {
+            arg = new Args("y", input);
+            boolean boolVal = arg.getBoolean('y');
+            assertTrue(boolVal);
+            boolVal = arg.getBoolean('n');
+            assertFalse(boolVal);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
